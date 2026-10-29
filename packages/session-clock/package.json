@@ -9,7 +9,8 @@
   "files": [
     "src",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "!src/**/*.test.ts"
   ],
   "keywords": [
     "opencode",

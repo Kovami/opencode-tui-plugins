@@ -1,7 +1,7 @@
 # Design: three OpenCode TUI plugins (clock, stats, usage plans)
 
 Date: 2026-10-29
-Status: awaiting approval
+Status: approved
 Author: Kovami (with an AI agent)
 
 ## Intent
