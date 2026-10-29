@@ -1,0 +1,43 @@
+{
+  "name": "opencode-usage-plans",
+  "version": "0.1.0",
+  "description": "Subscription quota for Kimi Code and Alibaba Cloud in OpenCode",
+  "type": "module",
+  "exports": {
+    "./tui": "./src/tui.tsx"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "opencode",
+    "plugin",
+    "tui",
+    "usage",
+    "quota",
+    "kimi",
+    "alibaba"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kovami/opencode-tui-plugins.git",
+    "directory": "packages/usage-plans"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@opencode/plugin": "^2.2.1"
+  },
+  "peerDependencies": {
+    "@opentui/core": ">=0.6.6",
+    "@opentui/solid": ">=0.6.6",
+    "solid-js": ">=1.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
