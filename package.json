@@ -1,0 +1,26 @@
+{
+  "name": "opencode-tui-plugins",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "npm run typecheck && npm run test",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "^2.2.1",
+    "@opentui/core": "^0.7.0",
+    "@opentui/solid": "^0.7.0",
+    "@types/node": "^26.6.6",
+    "solid-js": "^1.9.12",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}
