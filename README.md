@@ -1,3 +1,12 @@
+> **This monorepo has been split into three standalone repositories.** Each
+> plugin now lives, ships, and is published on its own:
+>
+> - [opencode-session-clock](https://github.com/Kovami/opencode-session-clock)
+> - [opencode-session-stats](https://github.com/Kovami/opencode-session-stats)
+> - [opencode-usage-plans](https://github.com/Kovami/opencode-usage-plans)
+>
+> This repository is kept for history.
+
 # OpenCode TUI plugins
 
 Three small, independent plugins for the OpenCode terminal UI. Install only the
