@@ -86,11 +86,14 @@ export function parseKimi(payload: unknown, now = Date.now()): QuotaWindow[] {
   return windows
 }
 
-export function detectKimi(dataHome?: string, home?: string): Promise<KimiCredentials | undefined> {
+export function detectKimi(
+  dataHome = process.env.XDG_DATA_HOME || undefined,
+  home = process.env.HOME || homedir(),
+): Promise<KimiCredentials | undefined> {
   const paths = [
     dataHome ? join(dataHome, "opencode", "auth.json") : undefined,
-    join(home ?? process.env.HOME ?? homedir(), ".local", "share", "opencode", "auth.json"),
-    join(home ?? process.env.HOME ?? homedir(), ".config", "opencode", "auth.json"),
+    join(home, ".local", "share", "opencode", "auth.json"),
+    join(home, ".config", "opencode", "auth.json"),
   ].filter((path): path is string => Boolean(path))
 
   for (const path of paths) {
@@ -125,7 +128,8 @@ export async function fetchKimi(
       return { error: "Kimi key rejected — sign in again" }
     }
     if (!response.ok) return { error: "Kimi usage unavailable" }
-    return parseKimi(await response.json(), now)
+    const windows = parseKimi(await response.json(), now)
+    return windows.length > 0 ? windows : { error: "Kimi usage unavailable" }
   } catch {
     return { error: "Kimi usage unavailable" }
   }

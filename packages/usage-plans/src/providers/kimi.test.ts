@@ -18,6 +18,7 @@ const ratioOnly = {
 
 afterEach(() => {
   vi.unstubAllGlobals()
+  vi.unstubAllEnvs()
 })
 
 describe("parseKimi", () => {
@@ -129,6 +130,19 @@ describe("detectKimi", () => {
     )
     await expect(detectKimi(dataHome, home)).resolves.toEqual({ key: "xdg-key" })
   })
+
+  test("reads XDG_DATA_HOME from the environment by default", async () => {
+    const home = makeHome(JSON.stringify({ "kimi-code-plan-global": { key: "home-key" } }))
+    const dataHome = mkdtempSync(join(tmpdir(), "usage-kimi-env-"))
+    mkdirSync(join(dataHome, "opencode"), { recursive: true })
+    writeFileSync(
+      join(dataHome, "opencode", "auth.json"),
+      JSON.stringify({ "kimi-code-plan-global": { key: "env-key" } }),
+    )
+    vi.stubEnv("XDG_DATA_HOME", dataHome)
+    vi.stubEnv("HOME", home)
+    await expect(detectKimi()).resolves.toEqual({ key: "env-key" })
+  })
 })
 
 describe("fetchKimi", () => {
@@ -152,6 +166,13 @@ describe("fetchKimi", () => {
     const result = await fetchKimi(credentials, new AbortController().signal, NOW)
     expect(result).toEqual({ error: "Kimi key rejected — sign in again" })
     expect(JSON.stringify(result)).not.toContain("secret-key")
+  })
+
+  test("maps a successful response without usable windows to a generic error", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("{}", { status: 200 })))
+    await expect(fetchKimi(credentials, new AbortController().signal, NOW)).resolves.toEqual({
+      error: "Kimi usage unavailable",
+    })
   })
 
   test("maps other failures to a generic error", async () => {

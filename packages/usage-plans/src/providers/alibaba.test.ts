@@ -139,6 +139,14 @@ describe("fetchAlibaba", () => {
     expect(JSON.stringify(result)).not.toContain("/secret")
   })
 
+  test("maps a successful call without quota fields to the same error", async () => {
+    state.mode = "ok"
+    state.stdout = JSON.stringify({ code: "not_logged_in" })
+    await expect(fetchAlibaba("/bin/bl", {}, new AbortController().signal, NOW)).resolves.toEqual({
+      error: "Alibaba usage unavailable — run bl login",
+    })
+  })
+
   test("maps invalid JSON to the same error", async () => {
     state.mode = "ok"
     state.stdout = "not json"

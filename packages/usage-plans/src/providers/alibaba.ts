@@ -81,7 +81,8 @@ export async function fetchAlibaba(
   }).catch(() => "")
 
   try {
-    return parseAlibaba(JSON.parse(stdout), now)
+    const windows = parseAlibaba(JSON.parse(stdout), now)
+    return windows.length > 0 ? windows : { error: ERROR }
   } catch {
     return { error: ERROR }
   }
