@@ -110,7 +110,7 @@ This is an npm-workspaces monorepo. From the repository root:
 
 ```sh
 npm install
-npm run check   # types, tests, and formatting of the sources
+npm run check   # types and tests
 ```
 
 Each package is published independently with `npm publish -w packages/<name>`.
